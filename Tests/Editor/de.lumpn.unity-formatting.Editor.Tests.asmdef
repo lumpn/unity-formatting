@@ -1,0 +1,17 @@
+{
+    "name": "de.lumpn.unity-formatting.Editor.Tests",
+    "references": [
+        "GUID:2725c2626b189da489be8b0faac6efd1"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
