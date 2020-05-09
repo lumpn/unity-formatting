@@ -1,8 +1,12 @@
+//----------------------------------------
+// MIT License
+// Copyright(c) 2020 Jonas Boetel
+//----------------------------------------
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 
-namespace Lumpn
+namespace Lumpn.Formatting
 {
     public static class FormattingUtils
     {

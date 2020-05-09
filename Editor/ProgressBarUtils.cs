@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//----------------------------------------
+// MIT License
+// Copyright(c) 2020 Jonas Boetel
+//----------------------------------------
 using UnityEditor;
 
-namespace Lumpn
+namespace Lumpn.Formatting
 {
     public static class ProgressBarUtils
     {

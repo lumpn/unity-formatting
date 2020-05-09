@@ -1,8 +1,12 @@
+//----------------------------------------
+// MIT License
+// Copyright(c) 2020 Jonas Boetel
+//----------------------------------------
 using System.IO;
 using NUnit.Framework;
 using UnityEditor;
 
-namespace Lumpn
+namespace Lumpn.Formatting
 {
     [TestFixture]
     public sealed class TestFormatting
