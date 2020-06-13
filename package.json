@@ -1,6 +1,6 @@
 {
   "name": "de.lumpn.unity-formatting",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "displayName": "Lumpn Formatting",
   "description": "Automatic formatting for C# and shader code.",
   "unity": "2017.1",
@@ -8,7 +8,10 @@
     "com.unity.ext.nunit": "1.0.0"
   },
   "keywords": [
-    "scheduler"
+    "lumpn",
+    "format",
+    "formatter",
+    "formatting"
   ],
   "author": {
     "name": "Jonas Boetel",
