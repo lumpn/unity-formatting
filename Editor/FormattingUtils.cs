@@ -82,7 +82,7 @@ namespace Lumpn.Formatting
             return false;
         }
 
-        private static IEnumerable<int> Read(Stream stream)
+        public static IEnumerable<int> Read(Stream stream)
         {
             int value;
             while ((value = stream.ReadByte()) >= 0)
