@@ -6,7 +6,7 @@ using System.IO;
 using NUnit.Framework;
 using UnityEditor;
 
-namespace Lumpn.Formatting
+namespace Lumpn.Formatting.Tests
 {
     [TestFixture]
     public sealed class FormattingTest
