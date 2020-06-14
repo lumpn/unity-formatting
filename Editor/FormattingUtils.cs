@@ -27,30 +27,9 @@ namespace Lumpn.Formatting
             FixFormatting(guids);
         }
 
-        public static bool IsNonScript(string path)
-        {
-            // NOTE: AssetDatabase includes packages and built in resources
-            if (!path.StartsWith("Assets/", System.StringComparison.OrdinalIgnoreCase)) return true;
-
-            // NOTE: for some reason Unity classifies DLLs as scripts
-            if (path.EndsWith(".dll", System.StringComparison.OrdinalIgnoreCase)) return true;
-
-            return false;
-        }
-
         public static void FixFormatting(string[] guids)
         {
-            using (var pb = ProgressBarUtils.Create("Fix formatting", guids.Length))
-            {
-                foreach (var guid in guids)
-                {
-                    var path = AssetDatabase.GUIDToAssetPath(guid);
-                    if (pb.Update(path)) break;
-
-                    if (IsNonScript(path)) continue;
-                    FixFormatting(path);
-                }
-            }
+            RunAction(guids, "Fix formatting", FixFormatting);
         }
 
         public static void FixFormatting(string path)
@@ -77,7 +56,33 @@ namespace Lumpn.Formatting
             File.Replace(outPath, path, null);
         }
 
-        public static IEnumerable<int> Read(Stream stream)
+        public static void RunAction(string[] guids, string title, System.Action<string> action)
+        {
+            using (var pb = ProgressBarUtils.Create(title, guids.Length))
+            {
+                foreach (var guid in guids)
+                {
+                    var path = AssetDatabase.GUIDToAssetPath(guid);
+                    if (pb.Update(path)) break;
+
+                    if (IsNonScript(path)) continue;
+                    action(path);
+                }
+            }
+        }
+
+        private static bool IsNonScript(string path)
+        {
+            // NOTE: AssetDatabase includes packages and built in resources
+            if (!path.StartsWith("Assets/", System.StringComparison.OrdinalIgnoreCase)) return true;
+
+            // NOTE: for some reason Unity classifies DLLs as scripts
+            if (path.EndsWith(".dll", System.StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
+        }
+
+        private static IEnumerable<int> Read(Stream stream)
         {
             int value;
             while ((value = stream.ReadByte()) >= 0)
@@ -86,7 +91,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static IEnumerable<int> FixLineEndings(IEnumerable<int> stream)
+        private static IEnumerable<int> FixLineEndings(IEnumerable<int> stream)
         {
             foreach (var value in stream)
             {
@@ -95,7 +100,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static IEnumerable<int> FixTabsVersusSpaces(IEnumerable<int> stream)
+        private static IEnumerable<int> FixTabsVersusSpaces(IEnumerable<int> stream)
         {
             foreach (var value in stream)
             {
@@ -113,7 +118,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static IEnumerable<int> FixTrailingWhitespaces(IEnumerable<int> stream)
+        private static IEnumerable<int> FixTrailingWhitespaces(IEnumerable<int> stream)
         {
             int consecutiveSpaces = 0;
             foreach (var value in stream)
@@ -138,7 +143,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static IEnumerable<int> FixFinalNewLine(IEnumerable<int> stream)
+        private static IEnumerable<int> FixFinalNewLine(IEnumerable<int> stream)
         {
             int consecutiveLinefeeds = 0;
             foreach (var value in stream)
@@ -163,7 +168,7 @@ namespace Lumpn.Formatting
             yield return 10;
         }
 
-        public static IEnumerable<int> FixPlainASCII(IEnumerable<int> stream)
+        private static IEnumerable<int> FixPlainASCII(IEnumerable<int> stream)
         {
             foreach (var value in stream)
             {
@@ -171,7 +176,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static IEnumerable<int> RemoveByteOrderMark(IEnumerable<int> stream)
+        private static IEnumerable<int> RemoveByteOrderMark(IEnumerable<int> stream)
         {
             int i = -1;
             foreach (var value in stream)

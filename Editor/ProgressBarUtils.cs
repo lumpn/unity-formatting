@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace Lumpn.Formatting
 {
-    public static class ProgressBarUtils
+    internal static class ProgressBarUtils
     {
         public sealed class Progress : System.IDisposable
         {

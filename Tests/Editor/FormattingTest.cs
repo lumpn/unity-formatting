@@ -9,7 +9,7 @@ using UnityEditor;
 namespace Lumpn.Formatting
 {
     [TestFixture]
-    public sealed class TestFormatting
+    public sealed class FormattingTest
     {
         [Test]
         public void TestLineEndings()
@@ -47,7 +47,7 @@ namespace Lumpn.Formatting
             RunTest("Test plain ASCII", TestPlainASCII);
         }
 
-        public static void TestLineEndings(string path)
+        private static void TestLineEndings(string path)
         {
             using (var file = File.OpenRead(path))
             {
@@ -61,7 +61,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static void TestTabsVersusSpaces(string path)
+        private static void TestTabsVersusSpaces(string path)
         {
             using (var file = File.OpenRead(path))
             {
@@ -75,8 +75,9 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static void TestIndentation(string path)
+        private static void TestIndentation(string path)
         {
+            const int tabSize = FormattingUtils.tabSize;
             using (var file = File.OpenRead(path))
             {
                 int lineNumber = 1;
@@ -93,7 +94,7 @@ namespace Lumpn.Formatting
                         }
                         else
                         {
-                            Assert.AreEqual((consecutiveSpaces / 4) * 4, consecutiveSpaces, "File '{0}' is not using four spaces for indentation in line {1}", path, lineNumber);
+                            Assert.AreEqual((consecutiveSpaces / tabSize) * tabSize, consecutiveSpaces, "File '{0}' is not using {1} spaces for indentation in line {2}", path, tabSize, lineNumber);
                             counting = false;
                         }
                     }
@@ -107,7 +108,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static void TestTrailingWhitespaces(string path)
+        private static void TestTrailingWhitespaces(string path)
         {
             using (var file = File.OpenRead(path))
             {
@@ -133,7 +134,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static void TestFinalNewLine(string path)
+        private static void TestFinalNewLine(string path)
         {
             using (var file = File.OpenRead(path))
             {
@@ -154,7 +155,7 @@ namespace Lumpn.Formatting
             }
         }
 
-        public static void TestPlainASCII(string path)
+        private static void TestPlainASCII(string path)
         {
             using (var file = File.OpenRead(path))
             {
@@ -171,17 +172,7 @@ namespace Lumpn.Formatting
         private static void RunTest(string title, System.Action<string> test)
         {
             var guids = AssetDatabase.FindAssets("t:script t:shader");
-            using (var pb = ProgressBarUtils.Create(title, guids.Length))
-            {
-                foreach (var guid in guids)
-                {
-                    var path = AssetDatabase.GUIDToAssetPath(guid);
-                    if (pb.Update(path)) break;
-
-                    if (FormattingUtils.IsNonScript(path)) continue;
-                    test(path);
-                }
-            }
+            FormattingUtils.RunAction(guids, title, test);
         }
     }
 }
