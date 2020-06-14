@@ -1,5 +1,5 @@
 {
-    "name": "de.lumpn.unity-formatting.Editor",
+    "name": "de.lumpn.formatting.Editor",
     "references": [],
     "includePlatforms": [
         "Editor"
