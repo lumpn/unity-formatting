@@ -1,6 +1,9 @@
 {
-    "name": "de.lumpn.formatting.Editor",
-    "references": [],
+    "name": "Lumpn.Formatting.Editor.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2725c2626b189da489be8b0faac6efd1"
+    ],
     "includePlatforms": [
         "Editor"
     ],

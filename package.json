@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "displayName": "Lumpn Formatting",
   "description": "Automatic formatting for C# and shader code.",
-  "unity": "2017.1",
   "dependencies": {
     "com.unity.ext.nunit": "1.0.0"
   },
