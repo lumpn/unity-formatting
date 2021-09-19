@@ -1,7 +1,7 @@
 {
   "name": "de.lumpn.unity-formatting",
-  "version": "1.0.0",
-  "displayName": "Lumpn Formatting",
+  "version": "1.0.1",
+  "displayName": "Formatting",
   "description": "Automatic formatting for C# and shader code.",
   "dependencies": {
     "com.unity.ext.nunit": "1.0.0"
